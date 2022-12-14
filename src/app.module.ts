@@ -1,11 +1,25 @@
-import { Module } from '@nestjs/common';
-import { TagsModule } from './tags/tags.module';
-import { ThemesModule } from './themes/themes.module';
-import { NotesModule } from './notes/notes.module';
-import { DatabaseModule } from './database/database.module';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { DatabaseModule } from './db/database.module'
+import { AsyncContextMiddleware, AsyncContextModule } from './async-context'
+import { AppService } from './app.service'
+import { AppController } from './app.controller'
+import { OrganizationModule } from './organization/organization.module'
+import { UserModule } from './user/user.module'
 
 @Module({
-  imports: [TagsModule, ThemesModule, NotesModule, DatabaseModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    DatabaseModule,
+    AsyncContextModule,
+    OrganizationModule,
+    UserModule,
+  ],
+  providers: [AppService],
+  controllers: [AppController],
 })
-export class ApplicationModule {
+export class ApplicationModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AsyncContextMiddleware).forRoutes('*')
+  }
 }

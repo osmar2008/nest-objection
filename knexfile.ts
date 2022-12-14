@@ -1,17 +1,16 @@
-import 'dotenv/config';
-import * as Knex from 'knex';
-import { knexSnakeCaseMappers } from 'objection';
+import 'dotenv/config'
+import { knexSnakeCaseMappers } from 'objection'
 
-module.exports = {
+export default {
   client: 'pg',
   connection: process.env.DATABASE_URL,
   migrations: {
-    directory: './src/database/migrations',
-    stub: './src/database/migration.stub',
+    directory: './src/db/migrations',
+    stub: './src/db/migration.stub.ts',
   },
   seeds: {
-    directory: './src/database/seeds',
-    stub: './src/database/seed.stub'
+    directory: './src/db/seeds',
+    stub: './src/db/seed.stub.ts',
   },
-  ...knexSnakeCaseMappers()
-} as Knex.Config;
+  ...knexSnakeCaseMappers(),
+}
