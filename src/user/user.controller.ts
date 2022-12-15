@@ -3,6 +3,7 @@ import { UserService } from './user.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { AsyncContext } from 'src/async-context/async-context'
+import { ClsServiceManager } from 'nestjs-cls'
 
 @Controller('user')
 export class UserController {
@@ -25,7 +26,11 @@ export class UserController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    console.log('userId: ', this.asyncContext.get('userId'))
+    console.log('userId AsyncContext: ', this.asyncContext.get('userId'))
+
+    const cls = ClsServiceManager.getClsService()
+
+    console.log('userId CLS: ', cls.get('userId'))
     return this.userService.update(id, updateUserDto)
   }
 

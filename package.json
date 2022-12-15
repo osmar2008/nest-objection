@@ -28,6 +28,7 @@
     "class-validator": "^0.14.0",
     "dotenv": "^10.0.0",
     "knex": "^0.95.15",
+    "nestjs-cls": "^3.0.4",
     "objection": "^3.0.0",
     "pg": "^8.7.1",
     "reflect-metadata": "0.1.13",

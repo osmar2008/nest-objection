@@ -10,7 +10,7 @@ export class BaseEntity extends Model {
   lastUpdatedBy: string
   async $beforeUpdate(opt: ModelOptions, queryContext: QueryContext): Promise<void> {
     await super.$beforeUpdate(opt, queryContext)
-    this.lastUpdatedBy = this.getAsyncContext().get('userId')
+    this.lastUpdatedBy = this.getAsyncContext()?.get('userId')
     this.updatedAt = new Date()
   }
 }

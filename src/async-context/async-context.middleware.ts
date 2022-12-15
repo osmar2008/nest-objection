@@ -2,6 +2,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common'
 import { Request, Response, NextFunction } from 'express'
 import { AsyncContext } from './async-context'
 import { randomUUID } from 'crypto'
+import { ClsServiceManager } from 'nestjs-cls'
 
 @Injectable()
 export class AsyncContextMiddleware implements NestMiddleware {
@@ -13,7 +14,10 @@ export class AsyncContextMiddleware implements NestMiddleware {
     console.log('userID: ', userId)
     const requestContext = Object.freeze({ userId })
 
-    console.log('middleware')
+    const cls = ClsServiceManager.getClsService()
+
+    cls.set('userId', userId)
+
     this.asyncContext.registerCallback(requestContext, () => next())
   }
 }

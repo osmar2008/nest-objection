@@ -3,18 +3,6 @@ import { applyAsyncContext } from 'src/db/database.module'
 import { BaseEntity } from '../../db/models/base.entity'
 import { Organization } from '../../organization/entity/organization.entity'
 
-
-class Something {
-  test: string
-  
-  constructor(){}
-  
-  static factory() {
-    this.test 
-  }
-  
-}
-const Base = applyAsyncContext(BaseEntity, asyncContext)
 export class User extends BaseEntity {
   static tableName = 'user'
 

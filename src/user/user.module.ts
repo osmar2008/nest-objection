@@ -13,7 +13,6 @@ const UserEntityProvider: Provider = {
   },
 }
 
-createEntityProvider()
 
 @Module({
   controllers: [UserController],
